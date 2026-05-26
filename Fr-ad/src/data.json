@@ -1,0 +1,180 @@
+{
+  "candidates": [
+    {
+      "id": 1,
+      "name": "MICHEAL MATTU",
+      "passport": "AD151961",
+      "country": "Romania",
+      "trade": "WAREHOUSE",
+      "ref": "AMRINDER GDP",
+      "ppStatus": "IN MAIL",
+      "visa": null,
+      "payment": null,
+      "ppExp": "2035-06-30",
+      "subDate": null
+    },
+    {
+      "id": 2,
+      "name": "JASMEET KAUR",
+      "passport": "C0614603",
+      "country": "Romania",
+      "trade": "UNSKILLED",
+      "ref": "ASHOK SHAHKOT",
+      "ppStatus": "IN OFFICE",
+      "visa": null,
+      "payment": null,
+      "ppExp": "2034-10-03",
+      "subDate": null
+    },
+    {
+      "id": 3,
+      "name": "VISHAL",
+      "passport": "T5962317",
+      "country": "Romania",
+      "trade": "STEEL FIXER",
+      "ref": "GURWINDER AG",
+      "ppStatus": "IN MAIL",
+      "visa": null,
+      "payment": null,
+      "ppExp": "2029-07-04",
+      "subDate": null
+    },
+    {
+      "id": 4,
+      "name": "RAHUL SINGH",
+      "passport": "B6490987",
+      "country": "Romania",
+      "trade": "WALL PAINTER",
+      "ref": "RAJNISH SIR",
+      "ppStatus": "IN OFFICE",
+      "visa": null,
+      "payment": null,
+      "ppExp": "2033-10-16",
+      "subDate": null
+    },
+    {
+      "id": 5,
+      "name": "RAKESH KUMAR",
+      "passport": "Y1949957",
+      "country": "Romania",
+      "trade": "MASON",
+      "ref": "SATWINDER ADAMPUR",
+      "ppStatus": "IN MAIL",
+      "visa": null,
+      "payment": null,
+      "ppExp": "2034-04-15",
+      "subDate": null
+    }
+  ],
+
+  "allStats": {
+    "total": 5,
+    "byCountry": {
+      "Romania": 5
+    },
+    "byStatus": {
+      "IN MAIL": 3,
+      "IN OFFICE": 2
+    },
+    "visaOK": 0,
+    "inMail": 3,
+    "inOffice": 2,
+    "byTrade": {
+      "WAREHOUSE": 1,
+      "UNSKILLED": 1,
+      "STEEL FIXER": 1,
+      "WALL PAINTER": 1,
+      "MASON": 1
+    }
+  },
+
+  "cashFlow": {
+    "totalIn": 150000,
+    "totalOut": 30000,
+    "totalExp": 5000,
+    "balance": 115000,
+
+    "transactions": [
+      {
+        "date": "2025-03-17",
+        "candidate": "Nikshit Rohit",
+        "agent": "Lucky Sandhu",
+        "service": "Offer Letter",
+        "country": "Romania",
+        "mode": "Cash",
+        "type": "Income – Candidate",
+        "cashIn": 30000,
+        "cashOut": 0,
+        "smallExp": 0,
+        "balance": 30000,
+        "remarks": ""
+      },
+      {
+        "date": "2025-03-18",
+        "candidate": "",
+        "agent": "",
+        "service": "",
+        "country": "",
+        "mode": "UPI",
+        "type": "Office Expense",
+        "cashIn": 0,
+        "cashOut": 0,
+        "smallExp": 500,
+        "balance": 29500,
+        "remarks": "Tea & snacks"
+      },
+      {
+        "date": "2025-03-20",
+        "candidate": "Rahul Kumar",
+        "agent": "Amrinder GDP",
+        "service": "Permit",
+        "country": "Romania",
+        "mode": "Cash",
+        "type": "Income – Candidate",
+        "cashIn": 50000,
+        "cashOut": 0,
+        "smallExp": 0,
+        "balance": 79500,
+        "remarks": ""
+      },
+      {
+        "date": "2025-03-22",
+        "candidate": "",
+        "agent": "",
+        "service": "",
+        "country": "",
+        "mode": "Cash",
+        "type": "Payment Out – Partner",
+        "cashIn": 0,
+        "cashOut": 30000,
+        "smallExp": 0,
+        "balance": 49500,
+        "remarks": "Payment to partner"
+      }
+    ]
+  },
+
+  "salary": [
+    {
+      "month": "Jun 2025",
+      "name": "Jyoti Mam",
+      "role": "Staff",
+      "salary": 9500,
+      "remarks": "salary paid cash"
+    },
+    {
+      "month": "Jun 2025",
+      "name": "Harpreet Mam",
+      "role": "Staff",
+      "salary": 11000,
+      "remarks": "salary paid cash"
+    },
+    {
+      "month": "Jun 2025",
+      "name": "Varinder Sir",
+      "role": "Manager",
+      "salary": 20000,
+      "remarks": "manager salary"
+    }
+  ]
+}

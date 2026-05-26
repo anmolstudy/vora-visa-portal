@@ -33,8 +33,7 @@ export default function EditCandidateModal({ open, onClose, onSave, candidate, a
   const [form, setForm] = useState({});
   const [saved, setSaved] = useState(false);
 
-  // Load candidate data into form when opened
-  useEffect(() => {
+        useEffect(() => {
     if (candidate) {
       setForm({
         name: candidate.name || '',
@@ -44,7 +43,7 @@ export default function EditCandidateModal({ open, onClose, onSave, candidate, a
         ref: candidate.ref || '',
         ppStatus: candidate.ppStatus || 'IN MAIL',
         visa: candidate.visa || '',
-        payment: candidate.payment || '',
+        payment: candidate.payment ?? '',
         ppExp: candidate.ppExp || '',
         subDate: candidate.subDate || '',
       });
@@ -100,6 +99,14 @@ export default function EditCandidateModal({ open, onClose, onSave, candidate, a
               <InputLabel>Country</InputLabel>
               <Select value={form.country || ''} label="Country" onChange={e => handleChange('country', e.target.value)}>
                 {COUNTRIES.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth size="small">
+              <InputLabel>Trade</InputLabel>
+              <Select value={form.trade || ''} label="Trade" onChange={e => handleChange('trade', e.target.value)}>
+                {TRADES.map(t => <MenuItem key={t} value={t}>{t}</MenuItem>)}
               </Select>
             </FormControl>
           </Grid>

@@ -108,7 +108,7 @@ router.get("/:id", async (req, res, next) => {
 router.patch("/:id", async (req, res, next) => {
   try {
     const ALLOWED = [
-      "fullName", "email", "phone", "visaType", "country", "message",
+      "fullName", "email", "phone", "passport", "visaType", "country", "message",
       "status", "ppStatus", "ref", "payment", "paymentStatus", "ppExp", "subDate",
     ];
     const updates = {};

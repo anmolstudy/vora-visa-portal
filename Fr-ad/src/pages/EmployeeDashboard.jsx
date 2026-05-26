@@ -71,28 +71,24 @@ function mapVisaToCandidate(visa) {
   return {
     id: visa._id,
     name: visa.fullName,
-    passport: visa.phone || "—",
+    passport: visa.passport || visa.phone || "—",   // FIX: read passport field first
     country: visa.country,
     trade: visa.visaType,
-    ref: "",
-    ppStatus:
-      visa.status === "Approved"
-        ? "IN OFFICE"
-        : visa.status === "Processing"
-          ? "IN MAIL"
-          : visa.status === "Rejected"
-            ? "COURIER"
-            : "IN MAIL",
+    ref: visa.ref || "",
+    ppStatus: visa.ppStatus || "IN MAIL",            // FIX: read real ppStatus from DB
     visa: visa.status,
-    payment: null,
-        paymentStatus: visa.paymentStatus || "PENDING",
-    ppExp: null,
-    subDate: visa.createdAt ? visa.createdAt.split("T")[0] : null,
+    payment: visa.payment ?? null,                   // FIX: read real payment from DB
+    paymentStatus: visa.paymentStatus || "PENDING",
+    ppExp: visa.ppExp ? visa.ppExp.split("T")[0] : null,   // FIX: read real ppExp from DB
+    subDate: visa.subDate
+      ? visa.subDate.split("T")[0]
+      : visa.createdAt
+        ? visa.createdAt.split("T")[0]
+        : null,
     email: visa.email,
     phone: visa.phone,
     message: visa.message,
     status: visa.status || "NEW",
-    paymentStatus: "PENDING",
   };
 }
 
@@ -212,32 +208,38 @@ export default function EmployeeDashboard({ adminUser, onLogout }) {
     }
   }
 
-  // Edit: PATCH status via /api/admin/visa/:id/status
+  // Edit: PATCH all fields via /api/admin/visa/:id
   async function handleEditCandidate(updated) {
     try {
       if (updated.id) {
         const payload = {
           fullName: updated.name,
-          phone: updated.passport,   // passport field stores phone
+          passport: updated.passport,           // FIX: send as passport, not phone
+          phone: updated.phone || updated.passport,
           country: updated.country,
           visaType: updated.trade || "",
           ref: updated.ref || "",
           ppStatus: updated.ppStatus || "IN MAIL",
-          status: updated.visa || "Pending",
-          payment: updated.payment ?? 0,
-          paymentStatus: updated.payment > 0 ? "PAID" : "PENDING",
+          status: updated.visa || "NEW",
+          payment: updated.payment != null ? Number(updated.payment) : 0,
+          paymentStatus: Number(updated.payment) > 0 ? "PAID" : "PENDING",
           ppExp: updated.ppExp || null,
           subDate: updated.subDate || null,
           message: updated.message || "",
         };
-        await API.patch(`/admin/visa/${updated.id}`, payload);
+        const res = await API.patch(`/admin/visa/${updated.id}`, payload);
+        // FIX: use the server response to update local state — not the stale local object
+        const saved = mapVisaToCandidate(res.data.data);
+        setCandidates((prev) => prev.map((c) => (c.id === saved.id ? saved : c)));
+      } else {
+        setCandidates((prev) => prev.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)));
       }
-      setCandidates((prev) => prev.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)));
       setToast({ msg: `✏️ ${updated.name} updated!`, severity: "info" });
     } catch (err) {
       console.error("Edit candidate error:", err);
+      // FIX: on error, still update local state optimistically so UI doesn't revert
       setCandidates((prev) => prev.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)));
-      setToast({ msg: `✏️ ${updated.name} updated (local only)`, severity: "info" });
+      setToast({ msg: `⚠️ ${updated.name} saved locally — check connection`, severity: "warning" });
     }
   }
 

@@ -5,6 +5,7 @@ const visaApplicationSchema = new mongoose.Schema({
   fullName: { type: String, required: true, trim: true },
   email: { type: String, required: true, trim: true, lowercase: true },
   phone: { type: String, required: true, trim: true },
+  passport: { type: String, default: '', trim: true },   // FIX: passport number field
   visaType: { type: String, trim: true },
   country: { type: String, required: true, trim: true },
   message: { type: String, default: '' },

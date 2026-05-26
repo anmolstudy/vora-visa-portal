@@ -35,16 +35,21 @@ app.use(helmet());
 app.use(securityHeaders);
 app.use(requestLogger);
 
-// ─── CORS: restrict to known origins ─────────────────────────────────────────
+
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "http://localhost:5173,http://localhost:5174")
   .split(",")
-  .map((o) => o.trim());
+  .map((o) => o.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin && process.env.NODE_ENV !== "production") return callback(null, true);
+      // Allow requests with no origin (health checks, mobile apps, Postman)
+      if (!origin) return callback(null, true);
+      
       if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+      
+      console.error(`CORS blocked: '${origin}' | Allowed: ${ALLOWED_ORIGINS.join(", ")}`);
       callback(new Error(`CORS: origin '${origin}' not allowed`));
     },
     credentials: true,
